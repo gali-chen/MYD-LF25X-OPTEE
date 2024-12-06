@@ -2,9 +2,14 @@ flavor_dts_file-215F_DK = stm32mp215f-dk.dts
 flavor_dts_file-235F_DK = stm32mp235f-dk.dts
 flavor_dts_file-257F_DK = stm32mp257f-dk.dts
 flavor_dts_file-257F_EV1 = stm32mp257f-ev1.dts
+flavor_dts_file-257X_MYB2GB = myb-stm32mp257x-2GB.dts
+flavor_dts_file-257X_MYB1GB = myb-stm32mp257x-1GB.dts
 
 flavorlist-MP25 = $(flavor_dts_file-257F_DK) \
+                  $(flavor_dts_file-257X_MYB2GB) \
+                  $(flavor_dts_file-257X_MYB1GB) \
 		  $(flavor_dts_file-257F_EV1)
+
 
 flavorlist-MP23 = $(flavor_dts_file-235F_DK)
 
