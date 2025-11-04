@@ -2906,6 +2906,10 @@
 				reg = <0x24 0x4>;
 			};
 
+			huk_otp: huk-otp@f0 {
+ 				reg = <0xf0 0x10>;
+			};
+
 			package_otp@1e8 {
 				reg = <0x1e8 0x1>;
 			};

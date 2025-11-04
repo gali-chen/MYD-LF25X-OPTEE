@@ -350,7 +350,15 @@
 };
 
 &pka {
-	status = "disabled";
+	status = "okay";
+};
+
+&cryp1 {
+        status = "disabled";
+};
+
+&cryp2 {
+        status = "disabled";
 };
 
 &pwr {
@@ -427,15 +435,15 @@
 };
 
 &risaf2 {
-	status = "disabled";
+	status = "okay";
 };
 
 &risaf5 {
-	status = "disabled";
+	status = "okay";
 };
 
 &saes {
-	status = "disabled";
+	status = "okay";
 };
 
 &scmi_regu {

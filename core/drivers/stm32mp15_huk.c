@@ -14,6 +14,7 @@
 #include <stm32_util.h>
 #include <string.h>
 #include <string_ext.h>
+#include <kernel/panic.h>
 
 #define HUK_NB_OTP (HW_UNIQUE_KEY_LENGTH / sizeof(uint32_t))
 
@@ -62,6 +63,7 @@ static TEE_Result stm32mp15_read_otp(uint32_t otp, uint32_t *key, bool *locked)
 		panic();
 
 	if (state != BSEC_STATE_SEC_CLOSED) {
+		IMSG("BSEC not closed");
 		/*
 		 * When the device is not closed, the shadow memory for these
 		 * words might not be locked: check and report them
@@ -186,13 +188,28 @@ TEE_Result tee_otp_get_hw_unique_key(struct tee_hw_unique_key *hwkey)
 	for (i = 0; i < HUK_NB_OTP; i++) {
 		ret = stm32mp15_read_otp(otp_id[i], key++, &lock);
 		if (ret)
+		{
+			IMSG("HUK read failed");
 			goto out;
+		}
 	}
 
+    IMSG("Raw OTP HUK (hex):");
+    for (i = 0; i < HUK_NB_OTP; i++) {
+            IMSG("  Word %zu: 0x%08x", i, (unsigned int)otp_key[i]);
+    }
 	if (IS_ENABLED(CFG_STM32MP15_HUK_BSEC_KEY)) {
 		static_assert(sizeof(otp_key) == HW_UNIQUE_KEY_LENGTH);
 		memcpy(hwkey->data, otp_key, HW_UNIQUE_KEY_LENGTH);
 		ret = TEE_SUCCESS;
+
+         	IMSG("Final HUK (hex bytes):");
+            	for (i = 0; i < HW_UNIQUE_KEY_LENGTH; i++) {
+                    if (i % 16 == 0 && i != 0) IMSG(""); // 每16字节换行
+                    if (i % 16 == 0) IMSG("  ");
+                    IMSG_RAW("%02x", hwkey->data[i]);
+            	}
+            	IMSG_RAW("\n");
 		goto out;
 	}
 
