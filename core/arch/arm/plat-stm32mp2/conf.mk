@@ -138,7 +138,6 @@ else
 $(call force,CFG_STM32MP25_RSTCTRL,y)
 $(call force,CFG_STM32MP25_CLK,y)
 $(call force,CFG_STM32_PKA,n)
-$(call force,CFG_STM32_SAES,n)
 $(call force,CFG_STM32_CRYP,n)
 $(call force,CFG_STM32_HASH,n)
 endif
@@ -166,6 +165,10 @@ ifeq ($(CFG_STM32MP21),y)
 CFG_STM32_EXTI ?= n
 endif
 
+#CFG_STM32MP15_HUK_OTP_BASE ?= 0xf0
+#CFG_STM32MP15_HUK ?= y 
+#CFG_STM32_HUK_FROM_DT ?=y
+CFG_RPMB_FS ?= y
 CFG_STM32_BSEC3 ?= y
 CFG_STM32_BSEC_WRITE ?= y
 CFG_STM32_CPU_OPP ?= y
@@ -227,6 +230,46 @@ CFG_STM32_EARLY_CONSOLE_UART ?= 2
 
 # Default disable external DT support
 CFG_EXTERNAL_DT ?= n
+
+
+CFG_STM32MP15_HUK ?= y
+ifeq (,$(CFG_STM32MP15_HUK_BSEC_KEY_0)$(CFG_STM32MP15_HUK_OTP_BASE))
+# Default get the HUK location from the DT if not specified in the configuration
+CFG_STM32_HUK_FROM_DT ?= y
+else
+$(call force,CFG_STM32_HUK_FROM_DT,n)
+endif
+
+ifeq ($(CFG_STM32MP15_HUK),y)
+ifneq ($(CFG_STM32_HUK_FROM_DT),y)
+ifneq (,$(CFG_STM32MP15_HUK_OTP_BASE))
+$(call force,CFG_STM32MP15_HUK_BSEC_KEY_0,CFG_STM32MP15_HUK_OTP_BASE)
+$(call force,CFG_STM32MP15_HUK_BSEC_KEY_1,(CFG_STM32MP15_HUK_OTP_BASE + 1))
+$(call force,CFG_STM32MP15_HUK_BSEC_KEY_2,(CFG_STM32MP15_HUK_OTP_BASE + 2))
+$(call force,CFG_STM32MP15_HUK_BSEC_KEY_3,(CFG_STM32MP15_HUK_OTP_BASE + 3))
+endif
+ifeq (,$(CFG_STM32MP15_HUK_BSEC_KEY_0))
+$(error Missing configuration switch CFG_STM32MP15_HUK_BSEC_KEY_0)
+endif
+ifeq (,$(CFG_STM32MP15_HUK_BSEC_KEY_1))
+$(error Missing configuration switch CFG_STM32MP15_HUK_BSEC_KEY_1)
+endif
+ifeq (,$(CFG_STM32MP15_HUK_BSEC_KEY_2))
+$(error Missing configuration switch CFG_STM32MP15_HUK_BSEC_KEY_2)
+endif
+ifeq (,$(CFG_STM32MP15_HUK_BSEC_KEY_3))
+$(error Missing configuration switch CFG_STM32MP15_HUK_BSEC_KEY_3)
+endif
+endif # CFG_STM32_HUK_FROM_DT
+
+CFG_STM32MP15_HUK_BSEC_KEY ?= y
+CFG_STM32MP15_HUK_BSEC_DERIVE_UID ?= n
+ifneq (y,$(call cfg-one-enabled,CFG_STM32MP15_HUK_BSEC_KEY CFG_STM32MP15_HUK_BSEC_DERIVE_UID))
+$(error CFG_STM32MP15_HUK mandates one of CFG_STM32MP15_HUK_BSEC_KEY CFG_STM32MP15_HUK_BSEC_DERIVE_UID)
+else ifeq ($(CFG_STM32MP15_HUK_BSEC_KEY)-$(CFG_STM32MP15_HUK_BSEC_DERIVE_UID),y-y)
+$(error CFG_STM32MP15_HUK_BSEC_KEY and CFG_STM32MP15_HUK_BSEC_DERIVE_UID are exclusive)
+endif
+endif # CFG_STM32MP15_HUK
 
 ifeq ($(CFG_STM32_HSE_MONITORING),y)
 $(call force,CFG_STM32_LPTIMER,y)
