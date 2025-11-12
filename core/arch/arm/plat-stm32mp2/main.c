@@ -190,7 +190,7 @@ static TEE_Result init_debug(void)
 	if (res)
 		return res;
 
-	if (state != BSEC_STATE_SEC_CLOSED) {
+	if (1) {
 		struct clk __maybe_unused *dbgmcu_clk = NULL;
 
 		if (IS_ENABLED(CFG_INSECURE))
