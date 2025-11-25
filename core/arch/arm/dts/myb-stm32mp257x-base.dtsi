@@ -443,7 +443,7 @@
 };
 
 &saes {
-	status = "okay";
+	status = "disabled";
 };
 
 &scmi_regu {
