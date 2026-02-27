@@ -60,7 +60,7 @@ TEE_Result e32_parser_load_elf_image(uint8_t *fw, size_t fw_size,
 	TEE_Result res = TEE_SUCCESS;
 	unsigned int i = 0;
 
-	if (!load_seg || fw + fw_size <= fw)
+	if (!load_seg || (uintptr_t)fw + fw_size <= (uintptr_t)fw)
 		return TEE_ERROR_BAD_PARAMETERS;
 
 	if (!IS_ALIGNED_WITH_TYPE(phdr, uint32_t) ||
@@ -104,7 +104,7 @@ TEE_Result e32_parser_find_rsc_table(uint8_t *fw, size_t fw_size,
 	Elf32_Ehdr *ehdr = (Elf32_Ehdr *)(void *)fw;
 	uint8_t *elf_data = fw;
 
-	if (fw + fw_size <= fw || fw + ehdr->e_shoff < fw)
+	if ((uintptr_t)fw + fw_size <= (uintptr_t)fw ||(uintptr_t)fw + ehdr->e_shoff < (uintptr_t)fw)
 		return TEE_ERROR_BAD_PARAMETERS;
 
 	shdr = (void *)(fw + ehdr->e_shoff);
