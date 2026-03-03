@@ -66,9 +66,9 @@
 #endif
 #endif
 
-#if defined(CFG_CRYPTO_DES)
-#define MBEDTLS_DES_C
-#endif
+//#if defined(CFG_CRYPTO_DES)
+//#define MBEDTLS_DES_C
+//#endif
 
 #if defined(CFG_CRYPTO_CBC)
 #define MBEDTLS_CIPHER_MODE_CBC
