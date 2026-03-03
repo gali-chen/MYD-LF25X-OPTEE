@@ -13,7 +13,7 @@
 #define MBEDTLS_PKCS1_V15
 
 #define MBEDTLS_CIPHER_C
-#define MBEDTLS_DES_C
+//#define MBEDTLS_DES_C
 #define MBEDTLS_AES_C
 #define MBEDTLS_NIST_KW_C
 #define MBEDTLS_POLY1305_C
