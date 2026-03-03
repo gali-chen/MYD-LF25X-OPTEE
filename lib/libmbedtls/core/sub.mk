@@ -11,12 +11,12 @@ srcs-$(CFG_CRYPTO_ECB) += aes_ecb.c
 srcs-$(CFG_CRYPTO_CBC) += aes_cbc.c
 srcs-$(CFG_CRYPTO_CTR) += aes_ctr.c
 endif
-ifeq ($(CFG_CRYPTO_DES),y)
-srcs-$(CFG_CRYPTO_ECB) += des_ecb.c
-srcs-$(CFG_CRYPTO_ECB) += des3_ecb.c
-srcs-$(CFG_CRYPTO_CBC) += des_cbc.c
-srcs-$(CFG_CRYPTO_CBC) += des3_cbc.c
-endif
+#ifeq ($(CFG_CRYPTO_DES),y)
+#srcs-$(CFG_CRYPTO_ECB) += des_ecb.c
+#srcs-$(CFG_CRYPTO_ECB) += des3_ecb.c
+#srcs-$(CFG_CRYPTO_CBC) += des_cbc.c
+#srcs-$(CFG_CRYPTO_CBC) += des3_cbc.c
+#endif
 
 srcs-$(CFG_CRYPTO_HMAC) += hmac.c
 srcs-$(CFG_CRYPTO_CMAC) += cmac.c
