@@ -15,7 +15,7 @@ include $(CRYPTO_MAKEFILES)
 
 # Ciphers
 CFG_CRYPTO_AES ?= y
-CFG_CRYPTO_DES ?= y
+#CFG_CRYPTO_DES ?= y
 CFG_CRYPTO_SM4 ?= y
 
 # Cipher block modes
