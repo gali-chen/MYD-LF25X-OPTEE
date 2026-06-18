@@ -911,14 +911,14 @@ static int set_agent_resource_perf_permissions(
         (resources_perms_backup.scmi_perf_perms == NULL)) {
         resources_perms_backup.scmi_perf_perms =
             (mod_res_perms_t *)fwk_mm_alloc(
-                resources_perms_ctx.agent_count *
+                ((size_t)resources_perms_ctx.agent_count) *
                     resources_perms_ctx.config->perf_cmd_count *
                     resources_perms_ctx.config->perf_resource_count,
                 sizeof(mod_res_perms_t));
         fwk_str_memcpy(
             resources_perms_backup.scmi_perf_perms,
             resources_perms_ctx.agent_permissions->scmi_perf_perms,
-            resources_perms_ctx.agent_count *
+            ((size_t)resources_perms_ctx.agent_count) *
                 resources_perms_ctx.config->perf_cmd_count *
                 resources_perms_ctx.config->perf_resource_count *
                 sizeof(mod_res_perms_t));
