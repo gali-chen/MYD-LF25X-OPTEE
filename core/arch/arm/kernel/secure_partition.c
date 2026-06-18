@@ -1038,7 +1038,8 @@ static TEE_Result handle_fdt_dev_regions(struct sp_ctx *ctx, void *fdt)
 		 * be able to access it without knowing the VA.
 		 */
 		if (res) {
-			vm_unmap(&ctx->uctx, va, pages_cnt * SMALL_PAGE_SIZE);
+			vm_unmap(&ctx->uctx, va,
+				 (size_t)pages_cnt * SMALL_PAGE_SIZE);
 			return res;
 		}
 	}
