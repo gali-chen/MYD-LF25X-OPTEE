@@ -226,7 +226,8 @@ static void etzpc_do_lock_decprot(struct etzpc_device *etzpc_dev,
 static bool decprot_is_locked(struct etzpc_device *etzpc_dev,
 			      uint32_t decprot_id)
 {
-	size_t offset = U(4) * (decprot_id / IDS_PER_DECPROT_LOCK_REGS);
+	size_t offset = (size_t)U(4) *
+			(decprot_id / IDS_PER_DECPROT_LOCK_REGS);
 	uint32_t mask = BIT(decprot_id % IDS_PER_DECPROT_LOCK_REGS);
 	vaddr_t base = etzpc_dev->pdata.base.va;
 
