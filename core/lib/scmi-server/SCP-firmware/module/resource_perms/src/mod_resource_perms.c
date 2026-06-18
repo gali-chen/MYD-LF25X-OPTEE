@@ -1078,7 +1078,7 @@ static int set_agent_resource_voltd_permissions(
         (resources_perms_backup.scmi_voltd_perms == NULL)) {
         resources_perms_backup.scmi_voltd_perms =
             (mod_res_perms_t *)fwk_mm_alloc(
-                resources_perms_ctx.agent_count *
+                (size_t)resources_perms_ctx.agent_count *
                     resources_perms_ctx.config->voltd_cmd_count *
                     resources_perms_ctx.config->voltd_resource_count,
                 sizeof(mod_res_perms_t));
