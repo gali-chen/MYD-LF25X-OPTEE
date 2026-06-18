@@ -1389,7 +1389,7 @@ static TEE_Result tee_rpmb_write_blk(uint16_t dev_id, uint16_t blk_idx,
 	uint32_t nbr_writes;
 	uint16_t tmp_blkcnt;
 	uint16_t tmp_blk_idx;
-	uint16_t i;
+	uint32_t i;
 
 	DMSG("Write %u block%s at index %u", blkcnt, ((blkcnt > 1) ? "s" : ""),
 	     blk_idx);
