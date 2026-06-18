@@ -314,7 +314,8 @@ TEE_Result sp_map_shared(struct sp_session *s,
 		return TEE_ERROR_NOT_SUPPORTED;
 
 	SLIST_FOREACH(reg, &smem->regions, link) {
-		res = vm_map(&ctx->uctx, va, reg->page_count * SMALL_PAGE_SIZE,
+		res = vm_map(&ctx->uctx, va,
+			     (size_t)reg->page_count * SMALL_PAGE_SIZE,
 			     perm, 0, reg->mobj, reg->page_offset);
 
 		if (res != TEE_SUCCESS) {
@@ -336,7 +337,7 @@ TEE_Result sp_unmap_ffa_regions(struct sp_session *s, struct sp_mem *smem)
 	SLIST_FOREACH(reg, &smem->regions, link) {
 		vaddr = (vaddr_t)sp_mem_get_va(&ctx->uctx, reg->page_offset,
 					       reg->mobj);
-		len = reg->page_count * SMALL_PAGE_SIZE;
+		len = (size_t)reg->page_count * SMALL_PAGE_SIZE;
 
 		res = vm_unmap(&ctx->uctx, vaddr, len);
 		if (res != TEE_SUCCESS)
