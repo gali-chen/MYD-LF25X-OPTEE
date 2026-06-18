@@ -174,7 +174,8 @@ static int spmc_sp_add_sp_region(struct sp_mem *smem,
 	struct sp_ctx *sp_ctx = NULL;
 	uint64_t va = READ_ONCE(mem_reg->address);
 	int res = FFA_OK;
-	uint64_t region_len = READ_ONCE(mem_reg->page_count) * SMALL_PAGE_SIZE;
+	uint64_t region_len = (uint64_t)READ_ONCE(mem_reg->page_count) *
+			      SMALL_PAGE_SIZE;
 	struct mobj *mobj = NULL;
 
 	sp_ctx = to_sp_ctx(owner_sp->ts_sess.ctx);
