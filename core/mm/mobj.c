@@ -390,7 +390,7 @@ struct mobj *mobj_with_fobj_alloc(struct fobj *fobj, struct file *file,
 
 	m->mobj.ops = &mobj_with_fobj_ops;
 	refcount_set(&m->mobj.refc, 1);
-	m->mobj.size = fobj->num_pages * SMALL_PAGE_SIZE;
+	m->mobj.size = (size_t)fobj->num_pages * SMALL_PAGE_SIZE;
 	m->mobj.phys_granule = SMALL_PAGE_SIZE;
 	m->fobj = fobj_get(fobj);
 	m->file = file_get(file);
