@@ -843,6 +843,8 @@ static int set_agent_resource_pd_permissions(
 {
     int status;
     int32_t message_idx;
+    size_t pd_perm_entries;
+    size_t pd_perm_bytes;
 
     if (resources_perms_ctx.agent_permissions->scmi_pd_perms == NULL) {
         return FWK_SUCCESS;
@@ -851,22 +853,22 @@ static int set_agent_resource_pd_permissions(
         return FWK_E_ACCESS;
     }
 
+    pd_perm_entries = (size_t)resources_perms_ctx.agent_count *
+        (size_t)resources_perms_ctx.config->pd_cmd_count *
+        (size_t)resources_perms_ctx.config->pd_resource_count;
+    pd_perm_bytes = pd_perm_entries * sizeof(mod_res_perms_t);
+
     /* Do a backup before making the changes if required */
     if ((resources_perms_ctx.config->pd_cmd_count != 0) &&
         (resources_perms_ctx.config->pd_resource_count != 0) &&
         (resources_perms_backup.scmi_pd_perms == NULL)) {
         resources_perms_backup.scmi_pd_perms = (mod_res_perms_t *)fwk_mm_alloc(
-            resources_perms_ctx.agent_count *
-                resources_perms_ctx.config->pd_cmd_count *
-                resources_perms_ctx.config->pd_resource_count,
+            pd_perm_entries,
             sizeof(mod_res_perms_t));
         fwk_str_memcpy(
             resources_perms_backup.scmi_pd_perms,
             resources_perms_ctx.agent_permissions->scmi_pd_perms,
-            resources_perms_ctx.agent_count *
-                resources_perms_ctx.config->pd_cmd_count *
-                resources_perms_ctx.config->pd_resource_count *
-                sizeof(mod_res_perms_t));
+            pd_perm_bytes);
     }
 
     for (message_idx = (int32_t)MOD_SCMI_PD_POWER_DOMAIN_ATTRIBUTES;
