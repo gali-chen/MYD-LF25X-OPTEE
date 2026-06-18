@@ -422,11 +422,11 @@ stm32_etzpc_acquire_memory_access(struct firewall_query *firewall,
 	switch (id) {
 	case ETZPC_TZMA0_ID:
 		tzma_base = ROM_BASE;
-		prot_size = etzpc_do_get_tzma(etzpc_dev, 0) * SMALL_PAGE_SIZE;
+		prot_size = (size_t)etzpc_do_get_tzma(etzpc_dev, 0) * SMALL_PAGE_SIZE;
 		break;
 	case ETZPC_TZMA1_ID:
 		tzma_base = SYSRAM_BASE;
-		prot_size = etzpc_do_get_tzma(etzpc_dev, 1) * SMALL_PAGE_SIZE;
+		prot_size = (size_t)etzpc_do_get_tzma(etzpc_dev, 1) * SMALL_PAGE_SIZE;
 		break;
 	default:
 		return TEE_ERROR_BAD_PARAMETERS;
