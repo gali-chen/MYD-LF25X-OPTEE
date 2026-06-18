@@ -122,7 +122,7 @@ void stm32_serc_handle_ilac(void)
 
 	for (i = 0; i < (unsigned int)nreg; i++) {
 		uint32_t offset = sizeof(uint32_t) * i;
-		uint8_t tries = 0;
+		unsigned int tries = 0;
 
 		isr = io_read32(base + _SERC_ISR0 + offset);
 		isr &= io_read32(base + _SERC_IER0 + offset);
