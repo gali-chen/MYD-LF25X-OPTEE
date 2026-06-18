@@ -305,7 +305,8 @@ TEE_Result mobj_ffa_add_pages_at(struct mobj_ffa *mf, unsigned int *idx,
 		return TEE_ERROR_BAD_PARAMETERS;
 
 	if (!IS_ENABLED(CFG_CORE_SEL2_SPMC) &&
-	    !core_pbuf_is(CORE_MEM_NON_SEC, pa, num_pages * SMALL_PAGE_SIZE))
+	    !core_pbuf_is(CORE_MEM_NON_SEC, pa,
+			  (size_t)num_pages * SMALL_PAGE_SIZE))
 		return TEE_ERROR_BAD_PARAMETERS;
 
 	for (n = 0; n < num_pages; n++)
