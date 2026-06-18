@@ -149,11 +149,14 @@ int sha3_process(hash_state *md, const unsigned char *in, unsigned long inlen)
 	}
 
 	if (inlen > block_size) {
+		size_t processed = 0;
+
 		block_count = inlen / block_size;
 		crypto_accel_sha3_compress(state, in, block_count,
 					   digest_size);
-		in += block_count * block_size;
-		inlen -= block_count * block_size;
+		processed = (size_t)block_count * (size_t)block_size;
+		in += processed;
+		inlen -= processed;
 	}
 
 	memcpy(md->sha3.sb + md->sha3.byte_index, in, inlen);
