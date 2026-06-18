@@ -748,7 +748,7 @@ static void zero_mem_region(struct sp_mem *smem, struct sp_session *s)
 
 	ts_push_current_session(&s->ts_sess);
 	SLIST_FOREACH(reg, &smem->regions, link) {
-		size_t sz = reg->page_count * SMALL_PAGE_SIZE;
+		size_t sz = (size_t)reg->page_count * SMALL_PAGE_SIZE;
 
 		addr = sp_mem_get_va(&ctx->uctx, reg->page_offset, reg->mobj);
 
