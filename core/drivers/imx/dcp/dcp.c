@@ -542,7 +542,7 @@ TEE_Result dcp_sha_do_update(struct dcp_hash_data *hashdata,
 		return TEE_ERROR_BAD_PARAMETERS;
 
 	nb_blocks = size_total / DCP_SHA_BLOCK_SIZE;
-	size_todo = nb_blocks * DCP_SHA_BLOCK_SIZE;
+	size_todo = (size_t)nb_blocks * DCP_SHA_BLOCK_SIZE;
 	size_left = len - size_todo + hashdata->ctx_size;
 	desc = &hashdata->dcp_data.desc;
 
