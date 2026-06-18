@@ -2031,7 +2031,8 @@ vaddr_t tee_pager_init_iv_region(struct fobj *fobj)
 
 	assert(!pager_iv_region);
 
-	mm = tee_mm_alloc(&tee_mm_vcore, fobj->num_pages * SMALL_PAGE_SIZE);
+	mm = tee_mm_alloc(&tee_mm_vcore,
+			  (size_t)fobj->num_pages * SMALL_PAGE_SIZE);
 	if (!mm)
 		panic();
 
@@ -2039,7 +2040,8 @@ vaddr_t tee_pager_init_iv_region(struct fobj *fobj)
 	tee_pager_add_core_region((vaddr_t)smem, PAGED_REGION_TYPE_RW, fobj);
 	fobj_put(fobj);
 
-	asan_tag_access(smem, smem + fobj->num_pages * SMALL_PAGE_SIZE);
+	asan_tag_access(smem,
+			smem + (size_t)fobj->num_pages * SMALL_PAGE_SIZE);
 
 	pager_iv_region = find_region(&core_vm_regions, (vaddr_t)smem);
 	assert(pager_iv_region && pager_iv_region->fobj == fobj);
