@@ -981,7 +981,7 @@ static TEE_Result stm32_rifsc_sem_pm_suspend(void)
 	for (i = 0; i < rifsc_pdata.nrisup && i < rifsc_drvdata.nb_risup; i++) {
 		uint32_t semcfgr = io_read32(rifsc_pdata.base +
 					     _RIFSC_RISC_PER0_SEMCR +
-					     _OFFSET_PERX_CIDCFGR * i);
+					     _OFFSET_PERX_CIDCFGR * (uintptr_t)i);
 		struct risup_cfg *risup = rifsc_pdata.risup + i;
 
 		/* Save semaphores that were taken by the CID1 */
