@@ -1085,7 +1085,7 @@ static int set_agent_resource_voltd_permissions(
         fwk_str_memcpy(
             resources_perms_backup.scmi_voltd_perms,
             resources_perms_ctx.agent_permissions->scmi_voltd_perms,
-            resources_perms_ctx.agent_count *
+            (size_t)resources_perms_ctx.agent_count *
                 resources_perms_ctx.config->voltd_cmd_count *
                 resources_perms_ctx.config->voltd_resource_count *
                 sizeof(mod_res_perms_t));
