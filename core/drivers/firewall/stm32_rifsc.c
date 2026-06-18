@@ -925,7 +925,7 @@ static TEE_Result stm32_rifsc_set_config(struct firewall_query *firewall)
 
 		if (!rifsc_pdata.is_tdcid) {
 			cidcfgr = io_read32(rifsc_pdata.base +
-					    _OFFSET_PERX_CIDCFGR * risup.id +
+					    (vaddr_t)_OFFSET_PERX_CIDCFGR * risup.id +
 					    _RIFSC_RISC_PER0_CIDCFGR);
 
 			if (cidcfgr != risup.cid_attr)
