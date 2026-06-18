@@ -1021,7 +1021,7 @@ static TEE_Result handle_fdt_dev_regions(struct sp_ctx *ctx, void *fdt)
 			return res;
 		}
 
-		res = vm_map(&ctx->uctx, &va, pages_cnt * SMALL_PAGE_SIZE,
+		res = vm_map(&ctx->uctx, &va, (size_t)pages_cnt * SMALL_PAGE_SIZE,
 			     perm, 0, m, 0);
 		mobj_put(m);
 		if (res)
