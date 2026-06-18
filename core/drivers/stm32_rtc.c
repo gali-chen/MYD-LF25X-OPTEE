@@ -895,7 +895,7 @@ static TEE_Result stm32_rtc_init(void)
 	uint32_t pred_s_max = RTC_PRER_PREDIV_S_MASK >> RTC_PRER_PREDIV_S_SHIFT;
 	TEE_Result res = TEE_ERROR_GENERIC;
 
-	if (rate > (pred_a_max + 1) * (pred_s_max + 1))
+	if (rate > ((unsigned long)(pred_a_max + 1) * (pred_s_max + 1)))
 		panic("rtc_ck rate is too high");
 
 	/*
