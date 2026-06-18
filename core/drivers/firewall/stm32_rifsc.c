@@ -963,7 +963,7 @@ static void stm32_rifsc_release_access(struct firewall_query *firewall)
 		return;
 
 	cidcfgr = io_read32(rifsc_base + _RIFSC_RISC_PER0_CIDCFGR +
-			    _OFFSET_PERX_CIDCFGR * id);
+			    _OFFSET_PERX_CIDCFGR * (uintptr_t)id);
 
 	/* Only thing possible is to release a semaphore taken by OP-TEE CID */
 	if (SEM_EN_AND_OK(cidcfgr, RIF_CID1))
