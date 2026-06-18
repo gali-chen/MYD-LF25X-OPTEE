@@ -60,7 +60,7 @@ TEE_Result e32_parser_load_elf_image(uint8_t *fw, size_t fw_size,
 	TEE_Result res = TEE_SUCCESS;
 	unsigned int i = 0;
 
-	if (!load_seg || fw + fw_size <= fw)
+	if (!load_seg || !fw || !fw_size)
 		return TEE_ERROR_BAD_PARAMETERS;
 
 	if (!IS_ALIGNED_WITH_TYPE(phdr, uint32_t) ||
