@@ -803,7 +803,7 @@ static paddr_t sec_mem_get_pa(struct fobj *fobj, unsigned int page_idx)
 	assert(refcount_val(&fobj->refc));
 	assert(page_idx < fobj->num_pages);
 
-	return tee_mm_get_smem(f->mm) + page_idx * SMALL_PAGE_SIZE;
+	return tee_mm_get_smem(f->mm) + (paddr_t)page_idx * SMALL_PAGE_SIZE;
 }
 
 /*
