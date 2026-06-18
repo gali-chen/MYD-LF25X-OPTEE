@@ -960,19 +960,22 @@ static int set_agent_resource_clock_permissions(
     if ((resources_perms_ctx.config->clock_cmd_count != 0) &&
         (resources_perms_ctx.config->clock_resource_count != 0) &&
         (resources_perms_backup.scmi_clock_perms == NULL)) {
+        size_t perms_count;
+        size_t perms_bytes;
+
+        perms_count = (size_t)resources_perms_ctx.agent_count *
+            (size_t)resources_perms_ctx.config->clock_cmd_count *
+            (size_t)resources_perms_ctx.config->clock_resource_count;
+        perms_bytes = perms_count * sizeof(mod_res_perms_t);
+
         resources_perms_backup.scmi_clock_perms =
             (mod_res_perms_t *)fwk_mm_alloc(
-                resources_perms_ctx.agent_count *
-                    resources_perms_ctx.config->clock_cmd_count *
-                    resources_perms_ctx.config->clock_resource_count,
+                perms_count,
                 sizeof(mod_res_perms_t));
         fwk_str_memcpy(
             resources_perms_backup.scmi_clock_perms,
             resources_perms_ctx.agent_permissions->scmi_clock_perms,
-            resources_perms_ctx.agent_count *
-                resources_perms_ctx.config->clock_cmd_count *
-                resources_perms_ctx.config->clock_resource_count *
-                sizeof(mod_res_perms_t));
+            perms_bytes);
     }
 
     for (message_idx = (int32_t)MOD_SCMI_CLOCK_ATTRIBUTES;
