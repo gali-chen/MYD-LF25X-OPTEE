@@ -488,7 +488,7 @@ static TEE_Result stm32_risup_cfg(struct rifsc_platdata *pdata,
 				  struct risup_cfg *risup)
 {
 	struct rifsc_driver_data *drv_data = pdata->drv_data;
-	uintptr_t cidcfgr_offset = _OFFSET_PERX_CIDCFGR * risup->id;
+	uintptr_t cidcfgr_offset = (uintptr_t)_OFFSET_PERX_CIDCFGR * risup->id;
 	uintptr_t offset = sizeof(uint32_t) * (risup->id / _PERIPH_IDS_PER_REG);
 	uint32_t shift = risup->id % _PERIPH_IDS_PER_REG;
 	TEE_Result res = TEE_ERROR_GENERIC;
