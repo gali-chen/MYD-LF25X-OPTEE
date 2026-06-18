@@ -1425,7 +1425,8 @@ static TEE_Result tee_rpmb_write_blk(uint16_t dev_id, uint16_t blk_idx,
 	tmp_blkcnt = rpmb_ctx->rel_wr_blkcnt;
 	tmp_blk_idx = blk_idx;
 	for (i = 0; i < nbr_writes; i++) {
-		size_t offs = i * rpmb_ctx->rel_wr_blkcnt * RPMB_DATA_SIZE;
+		size_t offs = (size_t)i * (size_t)rpmb_ctx->rel_wr_blkcnt *
+			      (size_t)RPMB_DATA_SIZE;
 
 		/*
 		 * To handle the last write of block count which is
