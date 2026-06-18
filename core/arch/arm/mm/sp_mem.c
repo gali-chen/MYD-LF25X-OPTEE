@@ -96,7 +96,7 @@ int sp_mem_add_pages(struct mobj *mobj, unsigned int *idx,
 	}
 
 	for (n = 0; n < num_pages; n++)
-		ms->pages[n + *idx] = pa + n * SMALL_PAGE_SIZE;
+		ms->pages[n + *idx] = pa + (paddr_t)n * SMALL_PAGE_SIZE;
 
 	*idx += n;
 	return TEE_SUCCESS;
