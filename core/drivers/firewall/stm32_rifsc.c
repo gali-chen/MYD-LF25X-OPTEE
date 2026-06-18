@@ -1004,7 +1004,7 @@ static TEE_Result stm32_rifsc_sem_pm_resume(void)
 
 	for (i = 0; i < rifsc_pdata.nrisup && i < rifsc_drvdata.nb_risup; i++) {
 		struct risup_cfg *risup = rifsc_pdata.risup + i;
-		uintptr_t cidcfgr_offset = _OFFSET_PERX_CIDCFGR * risup->id;
+		uintptr_t cidcfgr_offset = (uintptr_t)_OFFSET_PERX_CIDCFGR * risup->id;
 		uintptr_t offset = sizeof(uint32_t) *
 				   (risup->id / _PERIPH_IDS_PER_REG);
 		uintptr_t perih_offset = risup->id % _PERIPH_IDS_PER_REG;
