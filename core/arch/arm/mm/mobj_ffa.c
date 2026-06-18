@@ -136,7 +136,7 @@ static struct mobj_ffa *ffa_new(unsigned int num_pages)
 		return NULL;
 
 	mf->mobj.ops = &mobj_ffa_ops;
-	mf->mobj.size = num_pages * SMALL_PAGE_SIZE;
+	mf->mobj.size = (size_t)num_pages * SMALL_PAGE_SIZE;
 	mf->mobj.phys_granule = SMALL_PAGE_SIZE;
 	refcount_set(&mf->mobj.refc, 0);
 	mf->inactive_refs = 0;
