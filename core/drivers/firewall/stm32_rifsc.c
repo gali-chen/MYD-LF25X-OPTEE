@@ -625,7 +625,7 @@ static void stm32_rimu_errata_ahbrisab(struct rifsc_platdata *pdata,
 
 		risup_cidcfgr = io_read32(pdata->base +
 					  _RIFSC_RISC_PER0_CIDCFGR +
-					  _OFFSET_PERX_CIDCFGR * risup->id);
+					  (vaddr_t)_OFFSET_PERX_CIDCFGR * risup->id);
 
 		if (!(risup_cidcfgr & RIFSC_RISC_CIDCFGR_CFEN_MASK) ||
 		    (!(risup_cidcfgr & RIFSC_RISC_CIDCFGR_SEM_EN_MASK) &&
