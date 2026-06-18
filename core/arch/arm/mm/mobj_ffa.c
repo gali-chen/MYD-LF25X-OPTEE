@@ -309,7 +309,7 @@ TEE_Result mobj_ffa_add_pages_at(struct mobj_ffa *mf, unsigned int *idx,
 		return TEE_ERROR_BAD_PARAMETERS;
 
 	for (n = 0; n < num_pages; n++)
-		mf->pages[n + *idx] = pa + n * SMALL_PAGE_SIZE;
+		mf->pages[n + *idx] = pa + (paddr_t)n * SMALL_PAGE_SIZE;
 
 	(*idx) += n;
 	return TEE_SUCCESS;
