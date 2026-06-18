@@ -627,13 +627,16 @@ void tee_pager_add_core_region(vaddr_t base, enum vm_paged_region_type type,
 {
 	struct vm_paged_region *reg = NULL;
 	size_t n = 0;
+	size_t region_size = 0;
 
 	assert(fobj);
 
-	DMSG("0x%" PRIxPTR " - 0x%" PRIxPTR " : type %d",
-	     base, base + fobj->num_pages * SMALL_PAGE_SIZE, type);
+	region_size = (size_t)fobj->num_pages * SMALL_PAGE_SIZE;
 
-	reg = alloc_region(base, fobj->num_pages * SMALL_PAGE_SIZE);
+	DMSG("0x%" PRIxPTR " - 0x%" PRIxPTR " : type %d",
+	     base, base + region_size, type);
+
+	reg = alloc_region(base, region_size);
 	if (!reg)
 		panic("alloc_region");
 
