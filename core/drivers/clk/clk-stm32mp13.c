@@ -3021,7 +3021,7 @@ static void clk_stm32_pm_backup_all_mux(void)
 static void clk_stm32_pm_restore_all_kernel_mux(void)
 {
 	struct clk_stm32_priv *priv = clk_stm32_get_priv();
-	uint16_t mux_id = 0U;
+	uint32_t mux_id = 0U;
 
 	for (mux_id = MUX_KERNEL_BEGIN; mux_id < priv->nb_muxes; mux_id++)
 		clk_stm32_pm_restore_mux(mux_id);
