@@ -969,7 +969,7 @@ static void stm32_rifsc_release_access(struct firewall_query *firewall)
 	if (SEM_EN_AND_OK(cidcfgr, RIF_CID1))
 		if (stm32_rif_release_semaphore(rifsc_base +
 						_RIFSC_RISC_PER0_SEMCR +
-						id * _OFFSET_PERX_CIDCFGR,
+						(uintptr_t)id * _OFFSET_PERX_CIDCFGR,
 						MAX_CID_SUPPORTED))
 			panic("Could not release the RIF semaphore");
 }
