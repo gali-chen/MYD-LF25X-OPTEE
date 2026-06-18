@@ -202,7 +202,13 @@ static TEE_Result alloc_and_map_sp_fobj(struct stmm_ctx *spc, size_t sz,
 static void *zalloc(void *opaque __unused, unsigned int items,
 		    unsigned int size)
 {
-	return mempool_alloc(mempool_default, items * size);
+	size_t n = items;
+	size_t elem_size = size;
+
+	if (n && elem_size > SIZE_MAX / n)
+		return NULL;
+
+	return mempool_alloc(mempool_default, n * elem_size);
 }
 
 static void zfree(void *opaque __unused, void *address)
