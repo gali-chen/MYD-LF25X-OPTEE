@@ -349,7 +349,7 @@ static TEE_Result save_context(struct stm32_saes_context *ctx)
 
 	/* If chaining mode need to save current IV */
 	if (does_chaining_mode_need_iv(ctx->cr)) {
-		uint8_t i = 0;
+		size_t i = 0;
 
 		/* Save IV */
 		for (i = 0; i < AES_IVSIZE / sizeof(uint32_t); i++) {
