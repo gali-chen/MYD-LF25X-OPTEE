@@ -428,7 +428,7 @@ static void clock_ref_count_allocate(void)
 
     /* Allocate table of agent:clock_states */
     scmi_clock_ctx.agent_clock_state_table = fwk_mm_calloc(
-        agent_count * clock_devices,
+        (size_t)agent_count * (size_t)clock_devices,
         sizeof(*scmi_clock_ctx.agent_clock_state_table));
 
     /* Allocate table of clock reference counts */
