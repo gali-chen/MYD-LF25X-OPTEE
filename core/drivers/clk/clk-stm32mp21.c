@@ -2044,7 +2044,7 @@ static int stm32_clk_configure_mux(struct clk_stm32_priv *priv __unused,
 	int mux = (data & MUX_ID_MASK) >> MUX_ID_SHIFT;
 	int sel = (data & MUX_SEL_MASK) >> MUX_SEL_SHIFT;
 	unsigned int rifsc_id = tab_mux_rifsc[mux].rifsc_id;
-	uintptr_t per_offset = _OFST_PERX_CIDCFGR * rifsc_id;
+	uintptr_t per_offset = (uintptr_t)_OFST_PERX_CIDCFGR * rifsc_id;
 	struct io_pa_va rifsc_addr = { .pa = RIFSC_BASE };
 	vaddr_t rifsc_base = io_pa_or_va(&rifsc_addr, 1);
 	uint32_t cidcfgr = io_read32(rifsc_base + _RIFSC_RISC_PER0_CIDCFGR +
