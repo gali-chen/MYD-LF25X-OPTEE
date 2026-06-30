@@ -140,6 +140,7 @@ TEE_Result crypto_cipher_alloc_ctx(void **ctx, uint32_t algo)
 		case TEE_ALG_AES_XTS:
 			res = crypto_aes_xts_alloc_ctx(&c);
 			break;
+#if defined(CFG_CRYPTO_DES)
 		case TEE_ALG_DES_ECB_NOPAD:
 			res = crypto_des_ecb_alloc_ctx(&c);
 			break;
@@ -152,6 +153,7 @@ TEE_Result crypto_cipher_alloc_ctx(void **ctx, uint32_t algo)
 		case TEE_ALG_DES3_CBC_NOPAD:
 			res = crypto_des3_cbc_alloc_ctx(&c);
 			break;
+#endif
 		case TEE_ALG_SM4_ECB_NOPAD:
 			res = crypto_sm4_ecb_alloc_ctx(&c);
 			break;
@@ -231,10 +233,12 @@ TEE_Result crypto_cipher_get_block_size(uint32_t algo, size_t *size)
 	case TEE_MAIN_ALGO_AES:
 		*size = TEE_AES_BLOCK_SIZE;
 		return TEE_SUCCESS;
+#if defined(CFG_CRYPTO_DES)
 	case TEE_MAIN_ALGO_DES:
 	case TEE_MAIN_ALGO_DES3:
 		*size = TEE_DES_BLOCK_SIZE;
 		return TEE_SUCCESS;
+#endif
 	case TEE_MAIN_ALGO_SM4:
 		*size = TEE_SM4_BLOCK_SIZE;
 		return TEE_SUCCESS;
@@ -295,6 +299,7 @@ TEE_Result crypto_mac_alloc_ctx(void **ctx, uint32_t algo)
 		case TEE_ALG_AES_CBC_MAC_PKCS5:
 			res = crypto_aes_cbc_mac_pkcs5_alloc_ctx(&c);
 			break;
+#if defined(CFG_CRYPTO_DES)
 		case TEE_ALG_DES_CBC_MAC_NOPAD:
 			res = crypto_des_cbc_mac_nopad_alloc_ctx(&c);
 			break;
@@ -310,6 +315,7 @@ TEE_Result crypto_mac_alloc_ctx(void **ctx, uint32_t algo)
 		case TEE_ALG_DES3_CMAC:
 			res = crypto_des3_cmac_alloc_ctx(&c);
 			break;
+#endif
 		case TEE_ALG_AES_CMAC:
 			res = crypto_aes_cmac_alloc_ctx(&c);
 			break;

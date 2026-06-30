@@ -7,7 +7,7 @@
   DES code submitted by Dobes Vandermeer
 */
 
-#ifdef LTC_DES
+#if defined(LTC_DES) && defined(CFG_CRYPTO_DES)
 
 #define EN0 0
 #define DE1 1

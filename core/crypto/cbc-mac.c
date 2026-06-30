@@ -227,6 +227,7 @@ TEE_Result crypto_aes_cbc_mac_pkcs5_alloc_ctx(struct crypto_mac_ctx **ctx)
 	return crypto_cbc_mac_alloc_ctx(ctx, TEE_ALG_AES_CBC_NOPAD, true);
 }
 
+#if defined(CFG_CRYPTO_DES)
 TEE_Result crypto_des_cbc_mac_nopad_alloc_ctx(struct crypto_mac_ctx **ctx)
 {
 	return crypto_cbc_mac_alloc_ctx(ctx, TEE_ALG_DES_CBC_NOPAD, false);
@@ -246,3 +247,4 @@ TEE_Result crypto_des3_cbc_mac_pkcs5_alloc_ctx(struct crypto_mac_ctx **ctx)
 {
 	return crypto_cbc_mac_alloc_ctx(ctx, TEE_ALG_DES3_CBC_NOPAD, true);
 }
+#endif

@@ -14,6 +14,8 @@
 #include <utee_defines.h>
 #include <util.h>
 
+#if defined(CFG_CRYPTO_DES)
+
 struct mbed_des3_cbc_ctx {
 	struct crypto_cipher_ctx ctx;
 	int mbed_mode;
@@ -126,3 +128,5 @@ TEE_Result crypto_des3_cbc_alloc_ctx(struct crypto_cipher_ctx **ctx_ret)
 
 	return TEE_SUCCESS;
 }
+
+#endif /* CFG_CRYPTO_DES */

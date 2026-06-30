@@ -81,8 +81,10 @@ static TEE_Result mbed_cmac_final(struct crypto_mac_ctx *ctx,
 	if (len == 0)
 		return TEE_ERROR_BAD_PARAMETERS;
 
+#if defined(CFG_CRYPTO_DES)
 	if (c->cipher_id == MBEDTLS_CIPHER_ID_3DES)
 		block_size = TEE_DES_BLOCK_SIZE;
+#endif
 
 	if (len < block_size)
 		tmp_digest = block_digest; /* use a tempory buffer */
@@ -171,10 +173,12 @@ static TEE_Result crypto_cmac_alloc_ctx(struct crypto_mac_ctx **ctx_ret,
 	return TEE_SUCCESS;
 }
 
+#if defined(CFG_CRYPTO_DES)
 TEE_Result crypto_des3_cmac_alloc_ctx(struct crypto_mac_ctx **ctx_ret)
 {
 	return crypto_cmac_alloc_ctx(ctx_ret, MBEDTLS_CIPHER_ID_3DES, 192);
 }
+#endif
 
 TEE_Result crypto_aes_cmac_alloc_ctx(struct crypto_mac_ctx **ctx_ret)
 {
