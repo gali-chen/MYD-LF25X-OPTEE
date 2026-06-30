@@ -194,7 +194,7 @@ static void etzpc_do_configure_decprot(struct etzpc_device *etzpc_dev,
 static enum etzpc_decprot_attributes
 etzpc_do_get_decprot(struct etzpc_device *etzpc_dev, uint32_t decprot_id)
 {
-	size_t offset = U(4) * (decprot_id / IDS_PER_DECPROT_REGS);
+	size_t offset = (size_t)(decprot_id / IDS_PER_DECPROT_REGS) * 4;
 	uint32_t shift = (decprot_id % IDS_PER_DECPROT_REGS) << DECPROT_SHIFT;
 	vaddr_t base = etzpc_dev->pdata.base.va;
 	uint32_t value = 0;

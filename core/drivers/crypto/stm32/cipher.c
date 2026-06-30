@@ -257,6 +257,7 @@ static TEE_Result stm32_cryp_cipher_allocate(void **ctx, uint32_t algo)
 	 * Convert TEE_ALGO id to internal id
 	 */
 	switch (algo) {
+#if defined(CFG_CRYPTO_DES)
 	case TEE_ALG_DES_ECB_NOPAD:
 		return alloc_cryp_ctx(ctx, STM32_CRYP_MODE_DES_ECB);
 	case TEE_ALG_DES_CBC_NOPAD:
@@ -265,6 +266,7 @@ static TEE_Result stm32_cryp_cipher_allocate(void **ctx, uint32_t algo)
 		return alloc_cryp_ctx(ctx, STM32_CRYP_MODE_TDES_ECB);
 	case TEE_ALG_DES3_CBC_NOPAD:
 		return alloc_cryp_ctx(ctx, STM32_CRYP_MODE_TDES_CBC);
+#endif
 	case TEE_ALG_AES_ECB_NOPAD:
 		return alloc_cryp_ctx(ctx, STM32_CRYP_MODE_AES_ECB);
 	case TEE_ALG_AES_CBC_NOPAD:
